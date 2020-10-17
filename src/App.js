@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Button, makeStyles } from '@material-ui/core';
+import React, { useState } from 'react'
+import { Button, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles(() => ({
   button: {
@@ -36,14 +36,21 @@ const phrases = [
 ]
 
 function App() {
-  const classes = useStyles();
-  const [clicks, setClicks] = useState(0);
-  const [satisfactions, setSatisfactions] = useState('');
+  const classes = useStyles()
+  const [clicks, setClicks] = useState(0)
+  const [satisfactions, setSatisfactions] = useState('')
 
   const buttonClick = () => {
-    setClicks(clicks+1)
+    setClicks(clicks + 1)
+
+    // Start adding satisfactions
     if (clicks >= phrases.length - 1 && clicks < 50) {
       setSatisfactions(satisfactions + '\nSATISFACTION')
+    }
+
+    // Start the song
+    if (clicks === 6) {
+      document.getElementById('song').src += '&autoplay=1'
     }
   }
 
@@ -52,8 +59,9 @@ function App() {
       <Button className={classes.button} variant='contained' color='grey' onClick={buttonClick}>{phrases[clicks < phrases.length - 1 ? clicks : 3]}</Button>
       <div className={classes.counter}>CLICKS: {clicks}</div>
       <div className={classes.satisfactions}>{satisfactions}</div>
+      <iframe id='song' width="560" height="315" src="https://www.youtube.com/embed/KYPcUxGS1Hw?start=35&loop=1&playlist=KYPcUxGS1Hw" allow="autoplay" hidden/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
