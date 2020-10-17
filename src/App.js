@@ -32,9 +32,6 @@ const useStyles = makeStyles(() => ({
     height: '100vh',
     top: 0,
     left: 0
-  },
-  topSection: {
-
   }
 }))
 
@@ -90,10 +87,8 @@ function App() {
       <div className={classes.satisfactions}>{satisfactions}</div>
       {images}
       <img src='https://i.gifer.com/XfQB.gif' className={classes.confetti} style={{display: clicks > 30 ? '' : 'none'}} />
-      <div className={classes.topSection}>
-        <Button className={classes.button} variant='contained' color='grey' onClick={buttonClick}>{phrases[clicks < phrases.length - 1 ? clicks : 3]}</Button>
-        <div className={classes.counter}>CLICKS: {clicks}</div>
-      </div>
+      <Button className={classes.button} variant='contained' color='grey' onClick={buttonClick}>{phrases[clicks < phrases.length - 1 ? clicks : 3]}</Button>
+      <div className={classes.counter}>CLICKS: {clicks}</div>
     </div>
   )
 }
