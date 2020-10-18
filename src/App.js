@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
-import { Button, makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const styles = {
   button: {
     position: 'absolute',
     bottom: 'calc(50vh - 2.5rem)',
     right: 'calc(50vw - 10rem)',
     height: '5rem',
-    width: '20rem'
+    width: '20rem',
+    fontSize: '1rem',
+    borderRadius: '0.5rem',
+    outline: 0
   },
   main: {
     textAlign: 'center',
@@ -33,7 +35,7 @@ const useStyles = makeStyles(() => ({
     top: 0,
     left: 0
   }
-}))
+}
 
 const phrases = [
   'PUSH ME',
@@ -49,9 +51,9 @@ const photos = [
   'https://thumbs.gfycat.com/BoilingMajesticHummingbird-size_restricted.gif',
   'https://www.theexpatfairs.com/wp-content/uploads/2019/07/just-do-it-gif-transparent-1.gif',
   'https://media0.giphy.com/media/kg77NnQ6AVOukapja2/giphy.gif',
-  'https://media1.giphy.com/media/KcoTgjSupHkFuyS1fv/source.gif',
   'https://media3.giphy.com/media/ReltxRUhwdm2Q/giphy.gif',
   'https://media1.giphy.com/media/IyL7BTQmCK5Ow/giphy.gif',
+  'https://media1.giphy.com/media/KcoTgjSupHkFuyS1fv/source.gif',
   'https://pyxis.nymag.com/v1/imgs/150/c5c/5d7f99986e74c759dca50efe326a6334b3-drake-3.h473.w710.gif',
   'https://lh3.googleusercontent.com/proxy/c2ikNTE2jOfQdh7sdjLxJ-SpdLhyZ8P5nOKQLMGV1xh3ss6cWoYjwsh8ehjq0ASZW2U_MFp_jEyIy2seMwf7-7qU',
   'https://media4.giphy.com/media/5fBH6zrcIiOs65zXCtG/giphy.gif'
@@ -59,8 +61,7 @@ const photos = [
 
 const getRandomPosition = () => ({ top: (Math.random() * 70) + 'vh', left: (Math.random() * 70) + 'vw' })
 
-function App() {
-  const classes = useStyles()
+const App = () => {
   const [clicks, setClicks] = useState(0)
   const [satisfactions, setSatisfactions] = useState('')
   const [images, setImages] = useState([])
@@ -77,18 +78,18 @@ function App() {
     if (clicks === 6) {
       document.getElementById('song').src += '&autoplay=1'
     } else if (clicks >= 60 && clicks % 30 === 0 && images.length < photos.length) {
-      setImages([...images, <img src={photos[images.length]} style={{position: 'absolute', ...getRandomPosition()}} />])
+      setImages([...images, <img alt='' src={photos[images.length]} style={{position: 'absolute', ...getRandomPosition()}} />])
     }
   }
 
   return (
-    <div className={classes.main} style={{backgroundColor: (clicks % 2 === 0 ? '#5050F0' : '#F05050')}}>
+    <div style={{...styles.main, backgroundColor: (clicks % 2 === 0 ? '#5050F0' : '#F05050')}}>
       <iframe id='song' width="560" height="315" src="https://www.youtube.com/embed/KYPcUxGS1Hw?start=35&loop=1&playlist=KYPcUxGS1Hw" allow="autoplay" hidden/>
-      <div className={classes.satisfactions}>{satisfactions}</div>
+      <div style={styles.satisfactions}>{satisfactions}</div>
       {images}
-      <img src='https://i.gifer.com/XfQB.gif' className={classes.confetti} style={{display: clicks > 30 ? '' : 'none'}} />
-      <Button className={classes.button} variant='contained' color='grey' onClick={buttonClick}>{phrases[clicks < phrases.length - 1 ? clicks : 3]}</Button>
-      <div className={classes.counter}>CLICKS: {clicks}</div>
+      <img src='https://i.gifer.com/XfQB.gif' style={{...styles.confetti, display: clicks > 30 ? '' : 'none'}} alt='' />
+      <button style={styles.button} onClick={buttonClick}>{phrases[clicks < phrases.length - 1 ? clicks : 3]}</button>
+      <div style={styles.counter}>CLICKS: {clicks}</div>
     </div>
   )
 }
